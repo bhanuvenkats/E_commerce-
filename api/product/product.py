@@ -42,6 +42,14 @@ async def create_product(
         )
         if not row:
             raise HTTPException(status_code=500, detail="Failed to create product")
+        # Also insert into product_images table
+        await conn.execute(
+            """
+            INSERT INTO siri.product_images (product_id, image_url)
+            VALUES ($1, $2)
+            """,
+            row["id"], row["image_url"]
+        )
         return ProductResponse(**row)
 
 @router.put("/{product_id}", response_model=ProductResponse)

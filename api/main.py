@@ -69,6 +69,8 @@ from api.signup.forgot_password import router as forgot_password_router
 from api.product.category import router as category_router
 from api.product.product import router as product_router
 from api.product.product_image import router as product_image_router
+from api.carts.cart import router as cart_router
+from api.carts.wishlist import router as wishlist_router
 
 if signup_router:
     app.include_router(signup_router)
@@ -84,6 +86,8 @@ if product_router:
     app.include_router(product_router)
 if product_image_router:
     app.include_router(product_image_router)
+app.include_router(cart_router)
+app.include_router(wishlist_router)
 
 @app.get("/health")
 async def health_check():
