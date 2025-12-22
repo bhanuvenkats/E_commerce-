@@ -71,21 +71,34 @@ class SendOTPRequest(BaseModel):
             raise ValueError('One of email or phone_number must be provided')
         return self
 
-# Forgot password schemas
+# =========================
+# PYDANTIC SCHEMAS  ✅ MUST BE BEFORE ROUTES
+# =========================
 
 class ForgotPasswordRequest(BaseModel):
     email: EmailStr
 
+
 class ForgotPasswordVerify(BaseModel):
     email: EmailStr
+
     otp: Annotated[
         str,
         constr(min_length=4, max_length=4, pattern="^[0-9]{4}$")
     ]
+
     new_password: Annotated[
         str,
         constr(min_length=8)
     ]
 
+    # ✅ ONLY FIELD ADDED
+    confirm_password: Annotated[
+        str,
+        constr(min_length=8)
+    ]
+
+
 class ForgotPasswordResponse(BaseModel):
     message: str
+
