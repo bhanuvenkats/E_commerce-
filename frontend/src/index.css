@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/* Optional global styles */
+* {
+  box-sizing: border-box;
+}
+
+@keyframes toast {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-toast {
+  animation: toast 0.35s ease-out;
+}
+
+.auth-input {
+  @apply w-full
+  rounded-xl
+  bg-black/30
+  border border-white/20
+  text-white
+  placeholder-white/40
+  focus:outline-none focus:border-white
+  px-5
+  pl-12; /* 👈 THIS fixes the overlap */
+}
+
+/* 🔒 Fix Chrome autofill white background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.08) inset !important;
+  box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0.35) inset !important;
+  transition: background-color 9999s ease-in-out 0s;
+}

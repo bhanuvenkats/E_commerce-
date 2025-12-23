@@ -1,18 +1,37 @@
-# Ignore Python virtual environments
+# =====================
+# Python
+# =====================
 venv/
 __pycache__/
 *.pyc
 
-# Ignore environment files
-api/.env
-
-# Ignore other sensitive or config files
-*.env
+# =====================
+# Environment files
+# =====================
 .env
+*.env
+
+# =====================
+# Backend (FastAPI / Django / Flask)
+# =====================
+api/.env
 *.log
 *.sqlite3
 db.sqlite3
 
-# Ignore OS files
+# =====================
+# Node / Frontend
+# =====================
+node_modules/
+
+# =====================
+# Build outputs
+# =====================
+dist/
+.vite/
+
+# =====================
+# OS files
+# =====================
 .DS_Store
 Thumbs.db
