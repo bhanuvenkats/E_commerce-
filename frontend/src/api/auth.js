@@ -1,4 +1,4 @@
-import api from "./api";
+import api from "./axios";
 
 // LOGIN
 export const loginUser = async (data) => {
