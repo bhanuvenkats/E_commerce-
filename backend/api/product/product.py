@@ -98,8 +98,18 @@ async def delete_product(product_id: int):
 async def list_products():
     pool = await get_db_pool()
     async with pool.acquire() as conn:
-        rows = await conn.fetch("SELECT * FROM siri.products ORDER BY created_at DESC")
-        return [ProductResponse(**row) for row in rows]
+        # Minimal product list for dashboard (non-breaking)
+        rows = await conn.fetch(
+            """
+            SELECT id, name, total_price AS price
+            FROM siri.products
+            ORDER BY created_at DESC
+            """
+        )
+        return [
+            {"id": row["id"], "name": row["name"], "price": float(row["price"])}
+            for row in rows
+        ]
 
 @router.get("/{product_id}", response_model=ProductResponse)
 async def get_product(product_id: int):

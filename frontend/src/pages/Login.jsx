@@ -22,9 +22,34 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await login({ email: email.trim(), password });
+      const res = await login({ email: email.trim(), password });
+
+      /**
+       * ✅ FIX: Correctly extract token & profile from backend response
+       */
+      const { token, profile } = res.data;
+
+      // ✅ Store token (explicit & safe)
+      localStorage.setItem("token", token);
+      localStorage.setItem("access_token", token);
+
+      // ✅ Store full user profile (THIS FIXES SIDEBAR + DASHBOARD)
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          user_id: profile.user_id,
+          username: profile.username,
+          first_name: profile.first_name,
+          last_name: profile.last_name,
+          email: profile.email,
+          phone_number: profile.phone_number,
+          role: profile.role,
+        })
+      );
+
       setShowToast(true);
-      setTimeout(() => navigate("/"), 800);
+      setTimeout(() => navigate("/dashboard"), 800);
+
     } catch (err) {
       setError(
         err.response?.data?.detail ||

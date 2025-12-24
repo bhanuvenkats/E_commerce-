@@ -61,6 +61,7 @@ class TokenValidatorMiddleware(BaseHTTPMiddleware):
             payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM], options={"verify_exp": False})
             token_id = payload.get("sub", "N/A")
             request.state.jwt_payload = payload  # <-- FIX: Set payload for downstream use
+            request.state.user = payload
         except Exception:
             payload = None
         logging.info(f"Request_ID={request_id} Token_ID={token_id} Valid={'Valid' if valid else 'Invalid'} Reason={reason}")

@@ -66,6 +66,8 @@ from api.signup.signup import router as signup_router
 from api.signup.login import router as login_router
 from api.signup.user_address import router as user_address_router
 from api.signup.forgot_password import router as forgot_password_router
+from api.signup.user_profile import router as user_profile_router
+from api.dashboard.dashboard import router as dashboard_router
 from api.product.category import router as category_router
 from api.product.product import router as product_router
 from api.product.product_image import router as product_image_router
@@ -80,6 +82,10 @@ if user_address_router:
     app.include_router(user_address_router)
 if forgot_password_router:
     app.include_router(forgot_password_router)
+if user_profile_router:
+    app.include_router(user_profile_router)
+if dashboard_router:
+    app.include_router(dashboard_router)
 if category_router:
     app.include_router(category_router)
 if product_router:
